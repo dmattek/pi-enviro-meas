@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # for DHT sensor
 import sys
 import Adafruit_DHT
