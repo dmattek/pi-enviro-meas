@@ -15,10 +15,11 @@ from datetime import datetime as dt
 # handles colour conversion
 # from:
 # https://github.com/vaab/colour
+# sudo pip install colour
 from colour import Color
 
-# SQLiteimport unicornhat as unicorn DB file location
-DBFILE = '/home/pi/DHTlogger/dhtlog.db'
+# SQLite DB file location
+DBFILE = '/var/www/dhtlog.db'
 
 # max/min temp and humid
 # this is to set bounds for display

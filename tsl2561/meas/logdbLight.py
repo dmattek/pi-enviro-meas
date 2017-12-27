@@ -10,7 +10,7 @@ import datetime
 import time
 
 # SQLite DB file location
-DBFILE = '/home/pi/TSL2561/lightlog.db'
+DBFILE = '/var/www/lightlog.db'
 
 # store the temperature in the database
 def logDB(inFull, inIR):

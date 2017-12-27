@@ -8,7 +8,7 @@ import cgitb
 
 # global variables
 speriod=(15*60)-1
-dbname='/home/pi/TSL2561/lightlog.db'
+dbname='/var/www/lightlog.db'
 
 
 
