@@ -8,7 +8,7 @@ import cgitb
 
 # global variables
 speriod=(15*60)-1
-dbname='/home/pi/DHTlogger/dhtlog.db'
+dbname='/var/www/dhtlog.db'
 
 
 

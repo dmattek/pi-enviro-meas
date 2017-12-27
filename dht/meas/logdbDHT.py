@@ -16,7 +16,7 @@ DHTsensor = Adafruit_DHT.AM2302
 DHTpin = 4
 
 # SQLite DB file location
-DBFILE = '/root/DHTlogger/dhtlog.db'
+DBFILE = '/var/www/dhtlog.db'
 
 # store the temperature in the database
 def logDB(inTemp, inHumid):
