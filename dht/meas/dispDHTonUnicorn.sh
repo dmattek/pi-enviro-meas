@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nohup sudo pi-enviro-meas/dht/meas/dispDHTonUnicorn.py > ~/nohup.out &
+nohup sudo /home/pi/pi-enviro-meas/dht/meas/dispDHTonUnicorn.py > /home/pi/nohup.out &
