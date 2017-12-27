@@ -10,18 +10,7 @@ This git contains:
  - cgi python scripts to visualise measurements through the web page (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html))
  
 
-## Getting DHT sensor to work
-
-Install Adafruit Python DHT Sensor Library from:
-https://github.com/adafruit/Adafruit_Python_DHT
-
-Make sure the sensor works and provides correct readings by executing
-
-```
-	sudo ./AdafruitDHT.py 2302 4
-```
-
-in `Adafruit_Python_DHT/examples` folder. The second parameter (`4`) is the GPIO pin to which the sensor is hooked. Change it if connected to a different GPIO.
+Environmental parameters are recorded in an SQLite database, which requires the entire setup to have an Apache web server and SQLite database installed on the system.
 
 ## Set up Apache web server with CGI Python mod
 
@@ -84,10 +73,3 @@ sudo chmod +x /usr/lib/cgi-bin/pytest.cgi
 ```
 
 Visit `http://pi-address/cgi-bin/pytest.cgi`; you should see a big bold `Python Script Test` text.
-
-
-## Set up the SQLite database
-
-This part is inspired and adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html).
-
-

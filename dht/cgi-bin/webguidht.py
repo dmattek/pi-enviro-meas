@@ -27,7 +27,7 @@ def printHTMLHead(title, table):
     print "    </title>"
     
     print_graph_script(table)
-
+    
     print "</head>"
 
 
@@ -259,11 +259,11 @@ def main():
     print "<html>"
     # print the head section including the table
     # used by the javascript for the chart
-    printHTMLHead("Temperature & humidity in Badger's den", table)
+    printHTMLHead("Temperature & humidity", table)
 
     # print the page body
     print "<body>"
-    print "<h1>Temperature & humidity in Badger's den</h1>"
+    print "<h1>Temperature & humidity</h1>"
     print "<hr>"
     print_time_selector(option)
     show_graph()

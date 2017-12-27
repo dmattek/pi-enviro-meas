@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python2 -u /root/DHTlogger/logdbDHT.py
+sudo python -u /pi-enviro-meas/dht/meas/logdbDHT.py
