@@ -1,4 +1,4 @@
-# Measuring temeparture and humidity with DHT-22 sensor
+# Measuring temperature and humidity with DHT-22 sensor
 
 
 ## Getting DHT sensor to work
@@ -72,4 +72,30 @@ Choose the editor and add the following line at the end of the file:
 */10 * * * * /home/pi/pi-enviro-meas/dht/meas/logdbDHT.sh
 ```
 
-This will run the shell script (which executes the python script `logdbDHT.py`) every 10 minutes in the background.
+This will run shell script (which executes the python script `logdbDHT.py`) every 10 minutes in the background. No action required after reboot. The script will keep runnning as configured in crontab.
+
+## Visualize on Unicorn pHAT
+
+Install libraries by following instructions in https://github.com/pimoroni/unicorn-hat
+
+Here I used:
+
+```
+\curl -sS https://get.pimoroni.com/unicornhat | bash
+```
+
+All libraries are installed in `~/Pimoroni` directory. Test the pHAT by running one of the examples in `Pimoroni/unicornhat/examples`.
+
+Run the script in the backgroud (even after logout):
+
+```
+nohup sudo python pi-enviro-meas/dht/meas/dispDHTonUnicorn.py > nohup.out &
+```
+
+The output is redirected to `nohup.out` file.
+
+Add the following line to crontab to start the visualization after reboot:
+
+```
+@reboot /home/pi/pi-enviro-meas/dht/meas/dispDHTonUnicorn.sh
+```

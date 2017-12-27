@@ -1,13 +1,15 @@
 # Measure and visualise environmental conditions
 
+Tested on Raspberry Pi Zero.
+
 This git contains: 
 
  - python scripts to measure:
 	
-	- temperature and humidity using [DHT-22](https://www.modmypi.com/blog/am2302-temphumidity-sensor) (also named as AM2302) sensor,
+	- temperature and humidity using [DHT-22](https://www.modmypi.com/blog/am2302-temphumidity-sensor) (also known as AM2302) sensor,
 	- visible and IR light intensity using [TSL2561](https://www.adafruit.com/product/439) sensor.
  
- - cgi python scripts to visualise measurements through the web page (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html))
+ - cgi python scripts to visualise measurements via  web UI (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html))
  
 
 Environmental parameters are recorded in an SQLite database, which requires the entire setup to have an Apache web server and SQLite database installed on the system.
@@ -73,3 +75,11 @@ sudo chmod +x /usr/lib/cgi-bin/pytest.cgi
 ```
 
 Visit `http://pi-address/cgi-bin/pytest.cgi`; you should see a big bold `Python Script Test` text.
+
+## Install SQLite
+
+Run
+
+```
+sudo apt-get install sqlite3
+```
