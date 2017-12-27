@@ -7,9 +7,11 @@ This git contains:
  - python scripts to measure:
 	
 	- temperature and humidity using [DHT-22](https://www.modmypi.com/blog/am2302-temphumidity-sensor) (also known as AM2302) sensor,
-	- visible and IR light intensity using [TSL2561](https://www.adafruit.com/product/439) sensor.
+	- visible and IR light intensity using [TSL2561](https://www.adafruit.com/product/439) sensor,
  
- - cgi python scripts to visualise measurements via  web UI (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html))
+ - cgi python scripts to visualise measurements via  web UI (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html)),
+ 
+ - python script to visualise temperature, humidity and current time on Pimoroni's [Unicorn pHAT](https://shop.pimoroni.com/products/unicorn-phat), an 8x4 RGB LED matrix.
  
 
 Environmental parameters are recorded in an SQLite database, which requires the entire setup to have an Apache web server and SQLite database installed on the system.

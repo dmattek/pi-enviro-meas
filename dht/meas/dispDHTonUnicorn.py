@@ -63,6 +63,9 @@ def getDBrow(inDBname):
 		if conn:
 			conn.close()
 
+# Visualisation of two parameters on an 8x4 RGB LED matrix (Pimoroni Unicorn pHAT)
+# The two parameters are shown as two-rows-high horizontal bars.
+# Both parameters are discretized into 8 bins beween respective MIN and MAX values.
 def dispMeas(inHatWidth, inHatHeight, inMeas1, inMeas2):
 	
 	locHalfHeight = int(round(inHatHeight / 2))
@@ -137,11 +140,15 @@ def dispMeas(inHatWidth, inHatHeight, inMeas1, inMeas2):
 		unicorn.show()
 		time.sleep(0.1)
 	
+# Visualisation of 3 parameters on an 8x4 RGB LED matrix (Pimoroni Unicorn pHAT)
+# The two parameters, inMaas1 and inMeas2 are shown as 4-rows-high vertical bars on left and right of the matrix
+# The 3rd parameter visualised is time provided by inH (hours) and inM (minutes)
+
 def dispMeas2(inHatWidth, inHatHeight, inMeas1, inMeas2, inH, inM):
 	
-	# print inMeas1 in rows 1 and 2
+	# print inMeas1 in column 1
 	# this is treated as Temperature
-	# print inMeas2 in rows 3 and 4
+	# print inMeas2 in column 8
 	# this is treated as Humidity
 	
 	# clip measurements

@@ -74,7 +74,16 @@ Choose the editor and add the following line at the end of the file:
 
 This will run shell script (which executes the python script `logdbDHT.py`) every 10 minutes in the background. No action required after reboot. The script will keep runnning as configured in crontab.
 
-## Visualize on Unicorn pHAT
+## Visualize on Unicorn pHAT 8x4 RGB LED matrix
+
+Visualisation in `pi-enviro-meas/dht/meas/dispDHTonUnicorn.py` script displays temperature in 1st column of the matrix, humidity in the last column, and time in the middle 4x4 square.
+
+Colour gradient for the temperature spans between blue (cold) and red (warm).
+
+Colour gradient for the humidity spans between red (low) and blue (high).
+
+Colour gradient for time loops the entire RGB palette with midnight starting at red, 9am indicated by green, and 6pm shown in blue.
+
 
 Install libraries by following instructions in https://github.com/pimoroni/unicorn-hat
 
@@ -86,7 +95,7 @@ Here I used:
 
 All libraries are installed in `~/Pimoroni` directory. Test the pHAT by running one of the examples in `Pimoroni/unicornhat/examples`.
 
-Run the script in the backgroud (even after logout):
+Run the visualisation script in the backgroud (even after logout):
 
 ```
 nohup sudo python pi-enviro-meas/dht/meas/dispDHTonUnicorn.py > nohup.out &
