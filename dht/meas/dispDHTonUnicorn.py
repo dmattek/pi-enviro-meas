@@ -1,6 +1,18 @@
 #!/usr/bin/python -u
 # -*- coding: utf-8 -*-
 
+# Fetches last record from SQLite DB and displays data 
+# on Unicorn pHAT 4x8 RGB LED matrix.
+# The DB should contain a table 'temps' with columns 
+# 'timestamp', 'temp', and 'humid'.
+#
+# Two example visualisations implemented in:
+#   dispMeas  - displays temperature and humidity as two horizontal bars 
+#               with height and colour dependent on parameter values
+#   dispMeas2 - displays temperature, humidity, and time (see details below)
+
+
+
 # for sqlite
 import sqlite3 as sql
 
@@ -37,7 +49,7 @@ COLOFFSET = 30
 
 # This piece is from:
 # http://zetcode.com/db/sqlitepythontutorial/
-# Obtains last row from db specified by DBFILE
+# Fetches last row from db specified by inDBname
 def getDBrow(inDBname):
 	try:
 		conn=sql.connect(inDBname)
