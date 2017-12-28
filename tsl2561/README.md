@@ -41,7 +41,7 @@ crontab -e
 Choose the editor and add the following line at the end of the file:
 
 ```
-*/10 * * * * /home/pi/pi-enviro-meas/tsl2561/meas/logdbLight.py 
+*/10 * * * * /home/pi/pi-enviro-meas/tsl2561/meas/logdbLight.sh 
 ```
 
 This will run shell script (which executes the python script `logdbDHT.py`) every 10 minutes in the background. No action required after reboot. The script will keep runnning as configured in crontab.
