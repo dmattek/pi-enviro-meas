@@ -48,6 +48,8 @@ sudo cp pi-enviro-meas/tsl2561/data/lightlog_template.db /var/www/lightlog.db
 
 The result is the measurement of temperature and humidity from DHT-22 sensor logged to `/var/www/dhtlog.db`, and light intenisty (IR and visible) to `/var/www/lightlog.db` every 10 minutes. The temperature and humidity are fetched every 10 minutes from the `dhtlog.db` database and shown along with current time on Unicorn pHAT matrix as colour-coded bars. Environmental parameters can be viewed through web UI by pointing your browser to `http://you-pi-address/cgi-bin/webguidht.py` and `http://you-pi-address/cgi-bin/webguilight.py`.
 
+The R notebook, `pi-enviro-meas/dht/Rscript/dht_anal.Rmd`, analyses data and produces an interactive scatter plot of humidity vs temperature. The document can be knitted into an HTML file `dht_anal.html`.
+
 ## Set up Apache web server with CGI Python mod
 
 Follow the instructions from [Run python script as cgi under apache2 server](https://www.raspberrypi.org/forums/viewtopic.php?t=155229).
