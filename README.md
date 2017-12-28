@@ -41,12 +41,14 @@ sudo cp pi-enviro-meas/tsl2561/data/lightlog_template.db /var/www/lightlog.db
 
 3. Add crontab jobs:
 
+```
 */10 * * * * /home/pi/pi-enviro-meas/dht/meas/logdbDHT.sh
 */10 * * * * /home/pi/pi-enviro-meas/tsl2561/meas/logdbLight.sh
 @reboot /home/pi/pi-enviro-meas/dht/meas/dispDHTonUnicorn.sh 
+```
 
 
-The result is the measurement of temperature and humidity from DHT-22 sensor logged to `/var/www/dhtlog.db`, and light intenisty (IR and visible) to `/var/www/lightlog.db` every 10 minutes. The temperature and humidity are fetched every 10 minutes from the `dhtlog.db` database and shown along with current time on Unicorn pHAT matrix as colour-coded bars. Environmental parameters can be viewed through web UI by pointing your browser to `http://you-pi-address/cgi-bin/webguidht.py` and `http://you-pi-address/cgi-bin/webguilight.py`.
+The result is the measurement of temperature and humidity from DHT-22 sensor logged to `/var/www/dhtlog.db`, and light intenisty (IR and visible) to `/var/www/lightlog.db` every 10 minutes. The temperature and humidity are fetched every 10 minutes from the `dhtlog.db` database and shown along with current time on Unicorn pHAT matrix as colour-coded bars. Environmental parameters can be viewed through web UI by pointing your browser to `http://your-pi-address/cgi-bin/webguidht.py` and `http://your-pi-address/cgi-bin/webguilight.py`.
 
 The R notebook, `pi-enviro-meas/dht/Rscript/dht_anal.Rmd`, analyses data and produces an interactive scatter plot of humidity vs temperature. The document can be knitted into an HTML file `dht_anal.html`.
 
