@@ -16,6 +16,38 @@ This git contains:
 
 Environmental parameters are recorded in an SQLite database, which requires the entire setup to have an Apache web server and SQLite database installed on the system.
 
+## Quick start
+
+Assuming that the Apache server is running, the SQLite database is installed, and the home directory is `/home/pi`:
+
+0. Get the repository from hithub:
+```
+git clone https://github.com/dmattek/pi-enviro-meas.git
+```
+
+This will create `pi-enviro-meas` in the folder from which the `git` command was executed. Note that all paths in scripts assume that the directory is located in `/home/pi`. Change paths in scripts accordingly if different!
+
+1. Copy CGI scripts to default CGI directory of Apache server:
+```
+sudo cp pi-enviro-meas/dht/cgi-bin/webguidht.py /usr/lib/cgi-bin/.
+sudo cp pi-enviro-meas/tsl2561/cgi-bin/webguilight.py /usr/lib/cgi-bin/.
+```
+
+2. Copy initialised databases:
+```
+sudo cp pi-enviro-meas/dht/data/dhtlog_template.db /var/www/dhtlog.db
+sudo cp pi-enviro-meas/tsl2561/data/lightlog_template.db /var/www/lightlog.db
+```
+
+3. Add crontab jobs:
+
+*/10 * * * * /home/pi/pi-enviro-meas/dht/meas/logdbDHT.sh
+*/10 * * * * /home/pi/pi-enviro-meas/tsl2561/meas/logdbLight.sh
+@reboot /home/pi/pi-enviro-meas/dht/meas/dispDHTonUnicorn.sh 
+
+
+The result is the measurement of temperature and humidity from DHT-22 sensor logged to `/var/www/dhtlog.db`, and light intenisty (IR and visible) to `/var/www/lightlog.db` every 10 minutes. The temperature and humidity are fetched every 10 minutes from the `dhtlog.db` database and shown along with current time on Unicorn pHAT matrix as colour-coded bars. Environmental parameters can be viewed through web UI by pointing your browser to `http://you-pi-address/cgi-bin/webguidht.py` and `http://you-pi-address/cgi-bin/webguilight.py`.
+
 ## Set up Apache web server with CGI Python mod
 
 Follow the instructions from [Run python script as cgi under apache2 server](https://www.raspberrypi.org/forums/viewtopic.php?t=155229).

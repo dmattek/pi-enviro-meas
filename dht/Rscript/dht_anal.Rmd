@@ -1,0 +1,94 @@
+---
+title: "Plot temperature vs humidity"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+Load required packages:
+
+```{r}
+require(data.table)
+require(ggplot2)
+require(plotly)
+require(RSQLite)
+```
+
+
+Fetch data from db:
+```{r}
+# set the file path to db
+s.dbpath = "../data/dhtlog.db"
+
+# connect to db
+con <- dbConnect(drv=RSQLite::SQLite(), dbname=s.dbpath)
+
+# list all tables
+tables <- dbListTables(con)
+
+# exclude sqlite_sequence (contains table information)
+tables <- tables[tables != "sqlite_sequence"]
+
+lDataFrames <- vector("list", length=length(tables))
+
+# create a data.frame for each table
+for (i in seq(along=tables)) {
+  lDataFrames[[i]] <- as.data.table(dbGetQuery(conn=con, statement=paste("SELECT * FROM '", tables[[i]], "'", sep="")))
+}
+
+# take 1st table only (this is where our data lives)
+dt = lDataFrames[[1]]
+```
+
+
+Get season from dates (adapted from https://stackoverflow.com/a/9501225/1898713):
+
+```{r}
+getSeason <- function(DATES) {
+  WS <- as.Date("2012-12-21", format = "%Y-%m-%d") # Winter Solstice
+  SE <- as.Date("2012-3-20",  format = "%Y-%m-%d") # Spring Equinox
+  SS <- as.Date("2012-6-21",  format = "%Y-%m-%d") # Summer Solstice
+  FE <- as.Date("2012-9-22",  format = "%Y-%m-%d") # Fall Equinox
+  
+  # Convert dates from any year to 2012 dates
+  d <- as.Date(strftime(DATES, format="2012-%m-%d"))
+  
+  ifelse (d >= WS | d < SE, "Winter",
+          ifelse (d >= SE & d < SS, "Spring",
+                  ifelse (d >= SS & d < FE, "Summer", "Fall")))
+}
+
+# add a column 'season' to our data
+dt[, season := getSeason(timestamp)]
+
+# order season column
+dt[, season := factor(season, levels = c('Winter', 'Spring', 'Summer', 'Fall'))]
+```
+
+Sometimes sensors malfunction and give strange readings such as very low temperature or very high humidity. Remove such measurements:
+```{r}
+dt = dt[temp > 10 & humid < 100]
+```
+
+
+Plot interactive scatter plot with points coloured by season. To avoid slowdown in `plotly` there are `nPts` random points selected and plotted for each season.
+
+```{r}
+# number of points to select
+nPts = 500
+
+# create a new trimmed dt with nPts random points from each season
+dt.short = dt[, .SD[sample(.N, min(.N, nPts))], by = season]
+
+# create a ggplot
+p1 = ggplot(dt.short, aes(x = temp, y = humid, label = timestamp)) +
+  geom_point(alpha = 0.3, aes(fill = season), colour = NA) +
+  xlab('\nTemperature') + 
+  ylab('Humidity\n') +
+  theme_bw()
+
+# interactive scatter plot
+ggplotly(p1)
+
+```
+
