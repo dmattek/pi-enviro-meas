@@ -1,5 +1,12 @@
 # Measuring temperature and humidity with DHT-22 sensor
 
+## Connecting DHT sensor
+
+Three pins in the sensor connect to:
+
+ - GND - ground
+ - VCC - 3.3V
+ - DAT - GPIO04 (pin 07)
 
 ## Getting DHT sensor to work
 

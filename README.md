@@ -11,14 +11,24 @@ This git contains:
  
  - cgi python scripts to visualise measurements via  web UI (adapted from [Building an SQLite temperature logger](http://raspberrywebserver.com/cgiscripting/rpi-temperature-logger/building-an-sqlite-temperature-logger.html)),
  
- - python script to visualise temperature, humidity and current time on Pimoroni's [Unicorn pHAT](https://shop.pimoroni.com/products/unicorn-phat), an 8x4 RGB LED matrix.
+ - python script to visualise temperature, humidity and current time on Pimoroni's [Unicorn pHAT](https://shop.pimoroni.com/products/unicorn-phat), an 8x4 RGB LED matrix,
+ 
+ - R notebook to analyse data and create an interactive scatter plot of humidity and temperature
  
 
 Environmental parameters are recorded in an SQLite database, which requires the entire setup to have an Apache web server and SQLite database installed on the system.
 
 ## Quick start
 
-Assuming that the Apache server is running, the SQLite database is installed, and the home directory is `/home/pi`:
+Instructions below assume that:
+
+- the Apache server is running (see below for installation instructions), 
+- the SQLite database is installed (see below for installation instructions), 
+- the home directory is `/home/pi`,
+- DHT-22 humidity and temperature sensor is installed (see [instructions](https://github.com/dmattek/pi-enviro-meas/tree/master/dht)),
+- visible and IR light intensity sensor is installed (see [instructions](https://github.com/dmattek/pi-enviro-meas/tree/master/tsl2561))
+
+Follow steps below to get everything running.
 
 0. Get the repository from hithub:
 ```

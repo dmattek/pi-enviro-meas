@@ -1,5 +1,15 @@
 # Measure visible and IR light intensity with TSL2561
 
+## Connecting the sensor
+
+Four pins in the sensor connect to:
+
+ - Vin - 3.3V
+ - GND - ground
+ - SDA - GPIO02 (SDA1, I2C, pin 03)
+ - SCL - GPIO03 (SCL1, I2C, pin 05)
+
+
 ## Enable I2C, SMBus
 From: https://www.abelectronics.co.uk/kb/article/1/i2c--smbus-and-raspbian-linux
 
