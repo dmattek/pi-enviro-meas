@@ -47,6 +47,19 @@ NSTEPHUMID = 20
 # important! add this to RGB value; otherwise pixels won't light up
 COLOFFSET = 30
 
+# definition of 2x4 pixel blocks with numbers
+NUMS = (
+        (((1,1,1),(1,1,1)), ((1,1,1),(1,1,1)), ((1,1,1),(1,1,1)), ((1,1,1),(1,1,1))), 
+        (((0,0,0),(1,1,1)), ((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((0,0,0),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((1,1,1),(0,0,0)), ((1,1,1),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((0,0,0),(1,1,1)), ((1,1,1),(1,1,1))), 
+        (((1,1,1),(0,0,0)), ((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((0,0,0),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((1,1,1),(0,0,0)), ((0,0,0),(1,1,1)), ((1,1,1),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((1,1,1),(0,0,0)), ((1,1,1),(1,1,1)), ((1,1,1),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((1,1,1),(0,0,0)), ((1,1,1),(0,0,0))), 
+        (((1,1,1),(1,1,1)), ((0,0,0),(0,0,0)), ((0,0,0),(0,0,0)), ((1,1,1),(1,1,1))), 
+        (((1,1,1),(1,1,1)), ((1,1,1),(1,1,1)), ((0,0,0),(1,1,1)), ((1,1,1),(1,1,1)))
+        )
 # This piece is from:
 # http://zetcode.com/db/sqlitepythontutorial/
 # Fetches last row from db specified by inDBname
@@ -256,8 +269,50 @@ def dispMeas2(inHatWidth, inHatHeight, inMeas1, inMeas2, inH, inM):
 			
 	unicorn.show()
 	time.sleep(0.1)
-		
-		
+	
+# Set pixels with digits on a 2x4 pixel matrix
+# Note, unicorn.show() has o be called after to show a number
+# Input:
+# inNum - a 0-9 number to display
+# inCols - tuple with color offset, e.g. (255, 128, 50)
+# inXoffset - horizontal shift on the pizel matrix; cannot exceed display matrix dimensions!
+
+def setUniPxNum(inNum, inCol, inXoffset):
+    if inNum in range(10):
+        locNumTab = NUMS[inNum]
+ 
+        for xx in range(2):
+            for yy in range(4):
+                        r = locNumTab[yy][xx][0] * inCol[0]
+                        g = locNumTab[yy][xx][1] * inCol[1]
+                        b = locNumTab[yy][xx][2] * inCol[2]
+                        r = max(0, min(255, r + COLOFFSET))
+                        g = max(0, min(255, g + COLOFFSET))
+                        b = max(0, min(255, b + COLOFFSET))
+                        unicorn.set_pixel(xx + inXoffset, yy, int(r), int(g), int(b))
+
+    else:
+        print("Error: a 0-9 number required")
+
+
+def dispMeas3(inHatWidth, inHatHeight, inMeas1, inMeas2, inH, inM):
+    locH = divmod(inH, 10)
+    locM = divmod(inM, 10)
+    
+    print inH, ":", inM
+    
+    locCol1 = (255, 255, 255)
+    locCol2 = (255, 255, 0)
+    locCol3 = (0, 255, 255)
+    locCol4 = (0, 255, 0)
+    
+    setUniPxNum(locH[0], locCol1, 0)
+    setUniPxNum(locH[1], locCol2, 2)
+    setUniPxNum(locM[0], locCol3, 4)
+    setUniPxNum(locM[1], locCol4, 6)
+    
+    unicorn.show()
+
 def main():
 	# set params for unicorn hat
 	unicorn.set_layout(unicorn.PHAT)
@@ -273,11 +328,11 @@ def main():
 	currT = dt.now()
 	
 	# display measurements on unicorn hat
-	dispMeas2(hatWidth, hatHeight, measT, measH, currT.hour, currT.minute)
+	dispMeas3(hatWidth, hatHeight, measT, measH, currT.hour, currT.minute)
 	
 	# repeat every 10'
 	# that's the frequency at which database is updated
-	time.sleep(600)
+	time.sleep(60)
 	
 if __name__ == '__main__':
   try:
